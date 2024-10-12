@@ -15,7 +15,7 @@
 \large Assignment 2 \\[0.5em]
 \endgroup
 \begingroup
-\normalsize \quad\quad\quad Name: Adharsh Kamath \quad\quad\quad  NetID: ak128 \par\
+\normalsize \quad\quad\quad Name: Adharsh Kamath \quad\quad\quad  UIN: 671259918 \quad\quad\quad  NetID: ak128 \par\
 \endgroup
 \rule{17cm}{0.4pt}
 \pointsdroppedatright   %Self-explanatory
@@ -31,6 +31,64 @@
 \begin{questions}
 	\question[]
 	\solutiontitle
+
+	Let us use $\psi$ to refer to the given formula.
+	\begin{align*}
+		\psi = \left( p \land  (p \Rightarrow q) \right) \Rightarrow q
+	\end{align*}
+
+	In order to show that $\psi$ is valid, we can show that 
+	\begin{align*}
+		\neg \psi = \neg \left( (p \land  (p \Rightarrow q)  \Rightarrow q) \right)
+	\end{align*}
+	is unsatisfiable. Rewriting the above formula:
+	\begin{align*}
+		\neg \psi = \neg \left( (p \land  (p \Rightarrow q)  \Rightarrow q) \right) \\
+					\equiv \neg \left( (p \land  (\neg p \lor q) ) \Rightarrow q \right) \\
+					\equiv \neg \left( \neg (p \land  (\neg p \lor q) ) \lor q \right) \\
+					\equiv (p \land  (\neg p \lor q) ) \land \neg q
+	\end{align*}
+
+	The last step is due to De Morgan's Law. We can now convert this to CNF, and use resolution to show that it is unsatisfiable.
+	To convert to CNF, we use the Tseitin transformation. We only need three new propositional variables, $x_{\neg \psi}, x_1, x_2$,
+	where $\neg x_{\psi}$ corresponds to $\neg \psi$, $x_1$ corresponds to $(\neg p \lor q)$ and $x_2$ corresponds to $(p \land x_1)$.
+	This gives us the following set:
+	\begin{align*}
+		\left .
+			\begin{cases}
+					\{ \neg x_{\psi} \}, \\
+					\{ \neg \neg x_{\psi}, x_2 \}, \{ \neg \neg x_{\psi}, \neg q \}, \{ \neg x_{\psi}, \neg x_2, \neg \neg q \} \\
+					\{ \neg x_2, p \}, \{ \neg x_2, x_1 \}, \{ x_2, \neg p, \neg x_1  \}, \\
+					\{ x_1, \neg \neg p \}, \{ x_1, \neg q \}, \{ \neg x_1, \neg p, q \}, 
+			\end{cases}
+		\right\}
+	\end{align*}
+
+	We can now use resolution to show that this set is unsatisfiable. Simplifying the set by replacing $ \neg \neg p $ with $ p $ for all propositional variables, we get:
+	\begin{align*}
+		\left .
+			\begin{cases}
+				\{ \neg x_{\psi} \}, \\
+				\{ x_{\psi}, x_2 \}, \{ x_{\psi}, \neg q \}, \{ \neg x_{\psi}, \neg x_2, q \} \\
+				\{ \neg x_2, p \}, \{ \neg x_2, x_1 \}, \{ x_2, \neg p, \neg x_1  \}, \\
+				\{ x_1, p \}, \{ x_1, \neg q \}, \{ \neg x_1, \neg p, q \},
+			\end{cases}
+		\right\}
+	\end{align*}
+
+	We can begin the resolution process by resolving the first two clauses:
+	\begin{align*}
+		& 1. \{ \neg x_{\psi} \} \\
+		& 2. \{ x_{\psi}, x_2 \} \\
+		& 3. \{ x_2 \} \quad \text{Resolvent of 1 and 2} \\
+		& 4. \{ x_{\psi}, \neg q \}
+		& 5. \{ \neg x_{\psi}, \neg x_2, q \} \\
+		& 6. \{ \neg x_2, q \} \quad \text{Resolvent of 4 and 5} \\
+		& 7. \{ q \} \quad \text{Resolvent of 3 and 6}
+		& 
+		& ... \\
+		& ... \\
+	\end{align*}
 
     {\rule{17cm}{0.4pt}}
 	\question[]
