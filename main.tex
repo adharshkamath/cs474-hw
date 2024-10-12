@@ -50,8 +50,8 @@
 	\end{align*}
 
 	The last step is due to De Morgan's Law. We can now convert this to CNF, and use resolution to show that it is unsatisfiable.
-	To convert to CNF, we use the Tseitin transformation. We only need three new propositional variables, $x_{\neg \psi}, x_1, x_2$,
-	where $\neg x_{\psi}$ corresponds to $\neg \psi$, $x_1$ corresponds to $(\neg p \lor q)$ and $x_2$ corresponds to $(p \land x_1)$.
+	To convert to CNF, we use the Tseitin transformation. We only need three new propositional variables, $x_{\psi}, x_1, x_2$,
+	where $x_{\psi}$ corresponds to $\psi$, $x_1$ corresponds to $(\neg p \lor q)$ and $x_2$ corresponds to $(p \land x_1)$.
 	This gives us the following set:
 	\begin{align*}
 		\left .
