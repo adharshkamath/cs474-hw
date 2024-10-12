@@ -32,7 +32,7 @@
 	\question[]
 	\solutiontitle
 
-	Let us use $\psi$ to refer to the given formula.
+	Let us use the symbol $\psi$ to refer to the given formula.
 	\begin{align*}
 		\psi = \left( p \land  (p \Rightarrow q) \right) \Rightarrow q
 	\end{align*}
@@ -49,10 +49,10 @@
 					\equiv (p \land  (\neg p \lor q) ) \land \neg q
 	\end{align*}
 
-	The last step is due to De Morgan's Law. We can now convert this to CNF, and use resolution to show that it is unsatisfiable.
+	The last step is due to De Morgan's Law. We can now convert this to CNF, and construct a resolution refutation to show that it is unsatisfiable.
 	To convert to CNF, we use the Tseitin transformation. We only need three new propositional variables, $x_{\psi}, x_1, x_2$,
 	where $x_{\psi}$ corresponds to $\psi$, $x_1$ corresponds to $(\neg p \lor q)$ and $x_2$ corresponds to $(p \land x_1)$.
-	This gives us the following set:
+	This gives us the following set of clauses:
 	\begin{align*}
 		\left .
 			\begin{cases}
@@ -64,7 +64,7 @@
 		\right\}
 	\end{align*}
 
-	We can now use resolution to show that this set is unsatisfiable. Simplifying the set by replacing $ \neg \neg p $ with $ p $ for all propositional variables, we get:
+	Simplifying the set by replacing $ \neg \neg p $ with $ p $ for all propositional variables, we get:
 	\begin{align*}
 		\left .
 			\begin{cases}
@@ -76,19 +76,26 @@
 		\right\}
 	\end{align*}
 
-	We can begin the resolution process by resolving the first two clauses:
+	We can now create a resolution refutation to show that this set is unsatisfiable:
 	\begin{align*}
 		& 1. \{ \neg x_{\psi} \} \\
 		& 2. \{ x_{\psi}, x_2 \} \\
 		& 3. \{ x_2 \} \quad \text{Resolvent of 1 and 2} \\
-		& 4. \{ x_{\psi}, \neg q \}
-		& 5. \{ \neg x_{\psi}, \neg x_2, q \} \\
-		& 6. \{ \neg x_2, q \} \quad \text{Resolvent of 4 and 5} \\
-		& 7. \{ q \} \quad \text{Resolvent of 3 and 6}
-		& 
-		& ... \\
-		& ... \\
+		& 4. \{ \neg x_2, p \} \\
+		& 5. \{ p \} \quad \text{Resolvent of 3 and 4} \\
+		& 6. \{ \neg x_1, \neg p, q \} \\
+		& 7. \{ \neg x_1, q \} \quad \text{Resolvent of 5 and 6} \\
+		& 8. \{ x_{\psi}, \neg q \} \\ 
+		& 9. \{ x_{\psi}, \neg x_1 \} \quad \text{Resolvent of 7 and 8} \\
+		& 10. \{ \neg x_1 \} \quad \text{Resolvent of 1 and 9} \\
+		& 11. \{ \neg x_2, x_1 \} \\
+		& 12. \{ \neg x_2 \} \quad \text{Resolvent of 3 and 11} \\
+		& 13. \{  \} \quad \text{Resolvent of 10 and 12}
 	\end{align*}
+
+	By creating this resolution refutation, we have shown that there is no valuation that can satisfy $ \neg \psi $.
+	Since $ \neg \psi $ is unsatisfiable, we can conclude that $ \psi $ is valid.
+
 
     {\rule{17cm}{0.4pt}}
 	\question[]
