@@ -2,6 +2,13 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{listings}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=cyan,
+}
 \usepackage{pythonhighlight}
 \usepackage[a4paper,lmargin=30pt, rmargin=50pt, tmargin=0.65in]{geometry}  %For centering solution box
 % \chead{\hline} % Un-comment to draw line below header
@@ -96,7 +103,9 @@
 	By creating this resolution refutation, we have shown that there is no valuation that can satisfy $ \neg \psi $.
 	Since $ \neg \psi $ is unsatisfiable, we can conclude that $ \psi $ is valid.
 
-	TODO: Running resolution tool
+	The above proof can be validated using the resolution tool provided as a part of the assignment.
+	The beginning set of clauses in the tool's syntax, and the resulting resolution proof object can be found at 
+	\url{https://github.com/adharshkamath/cs474-hw/tree/main/resolution_proofs/p1}
 
     {\rule{17cm}{0.4pt}}
 	\question[]
