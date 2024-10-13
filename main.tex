@@ -107,7 +107,9 @@
 		\psi = (q \lor \neg r) \land (\neg p \lor r) \land (\neg q \lor r \lor p) \land (p \lor q \lor \neg q) \land (\neg r \lor q)
 	\end{align*}
 
-	We can use the resolution method by starting with the following:
+	We can find resolvents in the following way:
+	(Only resolutions that lead to clauses that do not already exist in the set of clauses are considered. 
+	Resolutions that result in "trivial" clauses are also considered.)
 	\begin{align*}
 		& 1. \{ q \lor \neg r \} \\
 		& 2. \{ \neg p \lor r \} \\
@@ -117,8 +119,11 @@
 		& 6. \{ p \lor q \lor \neg q \} \\
 		& 7. \{ p \lor q \lor \neg r \} \quad \text{Resolvent of 1 and 6} \\
 		& 8. \{ r \lor \neg q \} \quad \text{Resolvent of 2 and 4} \\
-		& 9. \{ r \lor q \lor \neg q \} \quad \text{Resolvent of 2 and 6} \\
-		& 10. \{  \}
+		& 9. \{ r \lor \neg r \} \quad \text{Resolvent of 2 and 5} \\
+		& 10. \{ r \lor p \lor \neg p \} \quad \text{Resolvent of 2 and 5} \\
+		& 11. \{ r \lor q \lor \neg q \} \quad \text{Resolvent of 2 and 6} \\
+		& 12. \{ r \lor q \lor \neg r \} \quad \text{Resolvent of 2 and 7} \\
+		& 12. \{ p \lor q \lor \neg p \} \quad \text{Resolvent of 2 and 7} \\
 	\end{align*}
 
     {\rule{17cm}{0.4pt}}
