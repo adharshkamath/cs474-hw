@@ -96,10 +96,30 @@
 	By creating this resolution refutation, we have shown that there is no valuation that can satisfy $ \neg \psi $.
 	Since $ \neg \psi $ is unsatisfiable, we can conclude that $ \psi $ is valid.
 
+	TODO: Running resolution tool
 
     {\rule{17cm}{0.4pt}}
 	\question[]
 	\solutiontitle
+
+	We are given the formula:
+	\begin{align*}
+		\psi = (q \lor \neg r) \land (\neg p \lor r) \land (\neg q \lor r \lor p) \land (p \lor q \lor \neg q) \land (\neg r \lor q)
+	\end{align*}
+
+	We can use the resolution method by starting with the following:
+	\begin{align*}
+		& 1. \{ q \lor \neg r \} \\
+		& 2. \{ \neg p \lor r \} \\
+		& 3. \{ q \lor \neg p \} \quad \text{Resolvent of 1 and 2} \\
+		& 4. \{ \neg q \lor r \lor p \} \\
+		& 5. \{ r \lor \neg r \lor p \} \quad \text{Resolvent of 1 and 4} \\
+		& 6. \{ p \lor q \lor \neg q \} \\
+		& 7. \{ p \lor q \lor \neg r \} \quad \text{Resolvent of 1 and 6} \\
+		& 8. \{ r \lor \neg q \} \quad \text{Resolvent of 2 and 4} \\
+		& 9. \{ r \lor q \lor \neg q \} \quad \text{Resolvent of 2 and 6} \\
+		& 10. \{  \}
+	\end{align*}
 
     {\rule{17cm}{0.4pt}}
 	\question[]
