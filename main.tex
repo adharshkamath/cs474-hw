@@ -114,7 +114,9 @@
 	\end{align*}
 
 	We can find resolvents in the following way:
-	(Only resolutions that lead to clauses that do not already exist in the set of clauses, and are not trivial are considered)
+	(Only resolutions that lead to clauses that do not already exist in the set of clauses, and are not trivial are considered. 
+	For example, resolving $\{ q \lor \neg r \}$ and $\{ \neg q \lor r \lor p \}$ gives us $\{ r \lor \neg r \lor p \}$, which is trivially true and hence not included
+	in the resolution steps below. )
 	\begin{align*}
 		& 1. \{ q \lor \neg r \} \\
 		& 2. \{ \neg p \lor r \} \\
