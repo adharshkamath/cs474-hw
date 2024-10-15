@@ -5,6 +5,7 @@
 \usepackage{hyperref}
 \usepackage{xcolor}
 \usepackage{bookmark}
+\usepackage{graphicx}
 \newcommand{\link}[1]{{\color{blue}\href{#1}{#1}}}
 \usepackage{pythonhighlight}
 \usepackage[a4paper,lmargin=30pt, rmargin=50pt, tmargin=0.65in]{geometry}  %For centering solution box
@@ -19,7 +20,7 @@
 \large Assignment 2 \\[0.5em]
 \endgroup
 \begingroup
-\normalsize \quad\quad\quad Name: Adharsh Kamath \quad\quad\quad  UIN: 671259918 \quad\quad\quad  NetID: ak128 \par\
+\normalsize \quad\quad\quad Name: Adharsh Kamath \quad\quad\quad \quad\quad\quad \quad\quad\quad \quad\quad\quad \quad  NetID: ak128 \par\
 \endgroup
 \rule{17cm}{0.4pt}
 \pointsdroppedatright   %Self-explanatory
@@ -68,7 +69,7 @@
 		\right\}
 	\end{align*}
 
-	Simplifying the set by replacing $ \neg \neg p $ with $ p $ for all propositional variables, we get:
+	Simplifying the set by replacing $ \neg \neg p $ with $ p $ for all propositional variables $p$, we get:
 	\begin{align*}
 		\left .
 			\begin{cases}
@@ -93,7 +94,7 @@
 		& 9. \{ x_{\psi}, \neg x_1 \} \quad \text{Resolvent of 7 and 8} \\
 		& 10. \{ \neg x_1 \} \quad \text{Resolvent of 1 and 9} \\
 		& 11. \{ \neg x_2, x_1 \} \\
-		& 12. \{ \neg x_2 \} \quad \text{Resolvent of 3 and 11} \\
+		& 12. \{ x_1 \} \quad \text{Resolvent of 3 and 11} \\
 		& 13. \{  \} \quad \text{Resolvent of 10 and 12}
 	\end{align*}
 
@@ -166,7 +167,7 @@
 		\right\}
 	\end{align*}
 
-	These initial and final sets can be observed in the interaction with the resolution tool. The tool discards trivial and redundant clauses before the resolution steps are entered.
+	These initial and final sets can be observed in the interaction with the resolution tool. The tool discards trivial and redundant clauses before the resolution steps are entered. \\
 	
 
 	\textbf{(b):}
@@ -266,6 +267,33 @@ The Z3 code files mentioned previously can also be found in the same folder abov
 	\question[]
 	\solutiontitle
 
+	Since there is no restriction specified on the variable order, let us use the following order: 
+	
+	$ x_{\psi} > x_2 > q > x_1 > p $ 
+
+	Constructing the decision tree with the above variable order gives us the following:
+
+	\begin{center}
+	\includegraphics[scale=0.22]{decision_tree.png}
+	\end{center}
+
+	As we can see, all the paths are "blocked" and hence there is no satisfying assignment of values to the variables.
+	We can obtain a resolution proof from the above tree in the following way:
+
+	\begin{itemize}
+		\item Take the children of node $ p $, $ \{ \neg x_2, p \} $ and $ \{\neg x_1, \neg p, q \} $ and resolve them on $ p $ to obtain  $ \{\neg x_2, \neg x_1, q \} $
+		\item Now the left child of $ x_1 $ is $ \{\neg x_2, \neg x_1, q \} $ and the right child is $ \{ \neg x_2, x_1 \} $. Resolve them on $ x_1 $ to get $ \{ \neg x_2, q \} $
+		\item Now the left child of $ q $ is $ \{ \neg x_2, q \} $ and the right child is $ \{ x_{\psi}, \neg q \} $. Resolve them on $ q $ to get $ \{ \neg x_2, x_{\psi} \} $
+		\item Now the left child of $ x_2 $ is $ \{ \neg x_2, x_{\psi} \} $ and the right child is $ \{ x_2, x_{\psi} \} $. Resolve them on $ x_2 $ to get $ \{ \neg x_{\psi} \} $
+		\item Finally, the left child of $ x_{\psi} $ is $ \{ \neg x_{\psi} \} $ and the right child is $ \{ x_{\psi} \} $. Resolve them on $ x_{\psi} $ to get $ \{  \} $
+	\end{itemize}
+
+	This proof can be viewed as follows:
+
+
+	\begin{center}
+	\includegraphics[scale=0.22]{resolution_proof.png}
+	\end{center}
 
 
     {\rule{17cm}{0.4pt}}
