@@ -113,26 +113,57 @@
 		\psi = (q \lor \neg r) \land (\neg p \lor r) \land (\neg q \lor r \lor p) \land (p \lor q \lor \neg q) \land (\neg r \lor q)
 	\end{align*}
 
-	We can find resolvents in the following way:
-	(Only resolutions that lead to clauses that do not already exist in the set of clauses, and are not trivial are considered. 
-	For example, resolving $\{ q \lor \neg r \}$ and $\{ \neg q \lor r \lor p \}$ gives us $\{ r \lor \neg r \lor p \}$, which is trivially true and hence not included
-	in the resolution steps below. )
+	The set of clauses representing this formula is:
 	\begin{align*}
-		& 1. \{ q \lor \neg r \} \\
-		& 2. \{ \neg p \lor r \} \\
-		& 3. \{ q \lor \neg p \} \quad \text{Resolvent of 1 and 2} \\
-		& 4. \{ \neg q \lor r \lor p \} \\
-		& 5. \{ r \lor \neg r \lor p \} \quad \text{Resolvent of 1 and 4} \\
-		& 6. \{ p \lor q \lor \neg q \} \\
-		& 7. \{ p \lor q \lor \neg r \} \quad \text{Resolvent of 1 and 6} \\
-		& 8. \{ r \lor \neg q \} \quad \text{Resolvent of 2 and 4} \\
-		& 9. \{ r \lor \neg r \} \quad \text{Resolvent of 2 and 5} \\
-		& 10. \{ r \lor p \lor \neg p \} \quad \text{Resolvent of 2 and 5} \\
-		& 11. \{ r \lor q \lor \neg q \} \quad \text{Resolvent of 2 and 6} \\
-		& 12. \{ r \lor q \lor \neg r \} \quad \text{Resolvent of 2 and 7} \\
-		& 12. \{ p \lor q \lor \neg p \} \quad \text{Resolvent of 2 and 7} \\
-		& 13. \{ ... \}
+		\left .
+			\begin{cases}
+				\{q, \neg r\}, \{\neg p, r\}, \{\neg q, r, p\}, \{p, q, \neg q\}, \{\neg r, q\}
+			\end{cases}
+		\right\}
 	\end{align*}
+
+	We shall consider resolutions that (i) lead to new clauses and are (ii) not trivial. 
+	For example, resolving $\{q, \neg r \}$ and $\{ \neg q, r \lor p \}$ gives us $\{ r, \neg r, p \}$, which is trivially true and hence not included
+	in the resolution steps below. we will use the given formula as is, without modifying the given formula (removing any trivial or redundant conjuncts).  
+	
+	We can find resolvents in the following way:
+	\begin{align*}
+		& 1. \{ q, \neg r \} \\
+		& 2. \{ \neg p, r \} \\
+		& 3. \{ q, \neg p \} \quad \text{Resolvent of 1 and 2} \\
+		& 4. \{ p, q, \neg q \} \\
+		& 5. \{ p, q, \neg r \} \quad \text{Resolvent of 1 and 4} \\
+		& 6. \{ \neg q, r, p \} \\
+		& 7. \{ r, \neg q \} \quad \text{Resolvent of 2 and 6}
+	\end{align*}
+
+	The final set of clauses is:
+	\begin{align*}
+		\left .
+			\begin{cases}
+				\{q, \neg r\}, \{\neg p, r\}, \{\neg q, r, p\}, \{p, q, \neg q\}, \{\neg r, q\} \\
+				\{ q, \neg p \}, \{ p, q, \neg r \}, \{ r, \neg q \}
+			\end{cases}
+		\right\}
+	\end{align*}
+
+	Note that, if we had removed redundant and trivial clauses from the initial set of clauses, the final set would be different in the following ways:
+	\begin{itemize}
+		\item The clause $\{ p, q, \neg q \} $ would be removed since it is trivial
+		\item The clause $\{ \neg r, q \}$ would be removed since it is redundant
+		\item The resolvent $ \{ p, q, \neg r \} $ would not be present in the final set since $\{ p, q, \neg q \} $ was removed from the initial set (step 4 in the resolution)
+	\end{itemize}
+	The final set of clauses in that case would be:
+	\begin{align*}
+		\left .
+			\begin{cases}
+				\{q, \neg r\}, \{\neg p, r\}, \{\neg q, r, p\}, \\
+				\{ q, \neg p \}, \{ r, \neg q \}
+			\end{cases}
+		\right\}
+	\end{align*}
+
+	We can use this set of clauses in place of the previously derived set, since we have removed only trivial and redundant clauses.
 
     {\rule{17cm}{0.4pt}}
 	\question[]
