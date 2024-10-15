@@ -171,48 +171,95 @@
 
 	\textbf{(b):}
 
-	Encoding the initial formula in Z3:
+	Encoding the initial formula using the python library for Z3:
 
-	\begin{lstlisting}
-(declare-const p Bool)
-(declare-const q Bool)
-(declare-const r Bool)
+	\begin{python}
+from z3 import *
 
-(define-fun prop () Bool
-	(and 
-		(or q (not r)) 
-		(or (not p) r) 
-		(or (not q) r p) 
-		(or p q (not q)) 
-		(or (not r) q)
+p = Bool("p")
+q = Bool("q")
+r = Bool("r")
+
+s = Solver()
+
+s.add(
+	(And 
+		(Or(q, Not(r))),
+		(Or(Not(p), r)),
+		(Or(Not(q), r, p)), 
+		(Or(p, q, Not(q))), 
+		(Or (Not (r), q)),
 	)
 )
 
-(assert prop)
 
-(check-sat)
-(get-model)
-	\end{lstlisting}
+print(s.check())
+print(s.model())
+	\end{python}
 
-	The following output from Z3 can be observed:
+	The following output can be observed when the above program is executed:
 \begin{lstlisting}
 sat
-(
-	(define-fun q () Bool
-	false)
-	(define-fun p () Bool
-	false)
-	(define-fun r () Bool
-	false)
-	(define-fun prop () Bool
-	(and (or q (not r))
-		(or (not p) r)
-		(or (not q) r p)
-		(or p q (not q))
-		(or (not r) q)))
-)
+[q = False, p = False, r = False]
 \end{lstlisting}
 As we can see, the formula is satisfiable and Z3 finds a satisfying valuation, where all $p, q, r$ are set to $\text{false}$.
+
+In order to show the equivalence of $ \varphi $, the initial set of clauses, and $ \psi $ the final set, we can show the unsatisfiability of 
+$ \neg (\varphi \leftrightarrow \psi) $. This would mean that $ (\varphi \leftrightarrow \psi) $ is valid. Below is the program for the same:
+\begin{python}
+from z3 import *
+
+p = Bool("p")
+q = Bool("q")
+r = Bool("r")
+
+s = Solver()
+
+s.add(
+	Not(
+		(
+			And(
+				(Or(q, Not(r))),
+				(Or(Not(p), r)),
+				(Or(Not(q), r, p)),
+				(Or(p, q, Not(q))),
+				(Or(Not(r), q)),
+			)
+		)
+		== (
+			And(
+				(Or(q, Not(r))),
+				(Or(Not(p), r)),
+				(Or(Not(q), r, p)),
+				(Or(p, q, Not(q))),
+				(Or(Not(r), q)),
+				(Or(q, Not(p))),
+				(Or(p, q, Not(r))),
+				(Or(r, Not(q))),
+			)
+		)
+	)
+)
+
+if s.check() == unsat:
+	print("Formula valid!")
+else:
+	print("Formula not valid")
+\end{python}
+
+The following output is observed when the above program is executed:
+\begin{lstlisting}
+Formula valid!
+\end{lstlisting}
+
+Therefore, we can conclude that the sets of clauses $ \varphi $ and $ \psi $ are equivalent. 
+
+The resolution steps in \textbf{(a)} can be performed using the resolution tool as well.
+The initial set of clauses, and the resulting resolution proof object can be found at:
+
+\link{https://github.com/adharshkamath/cs474-hw/tree/main/resolution\_proofs/p2}.
+
+
 
 
     {\rule{17cm}{0.4pt}}
