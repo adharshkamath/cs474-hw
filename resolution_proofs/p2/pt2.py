@@ -33,6 +33,9 @@ s.add(
 )
 
 if s.check() == unsat:
+    # if Not(F) is unsat, F is valid
+    # We refer to the formula F when 
+    # we say "Formula is valid"
     print("Formula valid!")
 else:
     print("Formula not valid")
