@@ -122,6 +122,8 @@
 		\right\}
 	\end{align*}
 
+	\textbf{(a):}
+
 	We shall consider resolutions that (i) lead to new clauses and are (ii) not trivial. 
 	For example, resolving $\{q, \neg r \}$ and $\{ \neg q, r \lor p \}$ gives us $\{ r, \neg r, p \}$, which is trivially true and hence not included
 	in the resolution steps below. we will use the given formula as is, without modifying the given formula (removing any trivial or redundant conjuncts).  
@@ -144,7 +146,7 @@
 				\{q, \neg r\}, \{\neg p, r\}, \{\neg q, r, p\}, \{p, q, \neg q\}, \{\neg r, q\} \\
 				\{ q, \neg p \}, \{ p, q, \neg r \}, \{ r, \neg q \}
 			\end{cases}
-		\right\}
+		\right\} \quad \quad (1) \label{set1}
 	\end{align*}
 
 	Note that, if we had removed redundant and trivial clauses from the initial set of clauses, the final set would be different in the following ways:
@@ -153,6 +155,7 @@
 		\item The clause $\{ \neg r, q \}$ would be removed since it is redundant
 		\item The resolvent $ \{ p, q, \neg r \} $ would not be present in the final set since $\{ p, q, \neg q \} $ was removed from the initial set (step 4 in the resolution)
 	\end{itemize}
+
 	The final set of clauses in that case would be:
 	\begin{align*}
 		\left .
@@ -163,7 +166,54 @@
 		\right\}
 	\end{align*}
 
-	We can use this set of clauses in place of the previously derived set, since we have removed only trivial and redundant clauses.
+	These initial and final sets can be observed in the interaction with the resolution tool. The tool discards trivial and redundant clauses before the resolution steps are entered.
+	
+
+	\textbf{(b):}
+
+	Encoding the initial formula in Z3:
+
+	\begin{lstlisting}
+(declare-const p Bool)
+(declare-const q Bool)
+(declare-const r Bool)
+
+(define-fun prop () Bool
+	(and 
+		(or q (not r)) 
+		(or (not p) r) 
+		(or (not q) r p) 
+		(or p q (not q)) 
+		(or (not r) q)
+	)
+)
+
+(assert prop)
+
+(check-sat)
+(get-model)
+	\end{lstlisting}
+
+	The following output from Z3 can be observed:
+\begin{lstlisting}
+sat
+(
+	(define-fun q () Bool
+	false)
+	(define-fun p () Bool
+	false)
+	(define-fun r () Bool
+	false)
+	(define-fun prop () Bool
+	(and (or q (not r))
+		(or (not p) r)
+		(or (not q) r p)
+		(or p q (not q))
+		(or (not r) q)))
+)
+\end{lstlisting}
+As we can see, the formula is satisfiable and Z3 finds a satisfying valuation, where all $p, q, r$ are set to $\text{false}$.
+
 
     {\rule{17cm}{0.4pt}}
 	\question[]
